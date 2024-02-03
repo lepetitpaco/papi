@@ -9,4 +9,4 @@ services:
     ports:
       - "80:80"
     volumes:
-      - /home/paco/papi:/var/www/html
+      - ${HOST_PATH}:/var/www/html
