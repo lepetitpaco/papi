@@ -17,3 +17,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('/test', function () {
+    return response()->json(['message' => 'This is a test API endpoint']);
+});
+
+Route::get('/db-test', function () {
+    try {
+        \DB::connection()->getPdo();
+        return response()->json(['message' => 'Successfully connected to the database.']);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Failed to connect to the database: ' . $e->getMessage()]);
+    }
+});
