@@ -40,4 +40,11 @@ class SpendingController extends Controller
         ], 201);
     }
 
+    public function display()
+    {
+        $spendings = Spending::paginate(10);
+        return view('spendings', compact('spendings'));
+    }
+
+
 }

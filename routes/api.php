@@ -33,5 +33,6 @@ Route::get('/db-test', function () {
     }
 });
 
+// JSON API
 Route::get('/spendings', [SpendingController::class, 'index']);
 Route::post('/spendings', [SpendingController::class, 'store']);
