@@ -18,4 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/depenses', [SpendingController::class, 'display']);
+Route::get('/depenses', [SpendingController::class, 'display'])->name('spendings.display');
+Route::post('/depenses', [SpendingController::class, 'store'])->name('spendings.store');

@@ -29,15 +29,21 @@ class SpendingController extends Controller
             'date' => $request->date,
             'amount' => $request->amount,
             'withdrawn' => $request->withdrawn,
-            'date_inserted' => now(), // Laravel's helper function for the current timestamp
+            'date_inserted' => now(),
         ]);
 
         $spending->save();
 
-        return response()->json([
-            'message' => 'Spending record created successfully!',
-            'data' => $spending
-        ], 201);
+        // Check if the request wants JSON response
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => 'Spending record created successfully!',
+                'data' => $spending
+            ], 201);
+        }
+
+        // Redirect for web requests
+        return redirect('/depenses')->with('success', 'Spending record created successfully!');
     }
 
     public function display()
