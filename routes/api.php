@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SpendingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,6 @@ Route::get('/db-test', function () {
         return response()->json(['message' => 'Failed to connect to the database: ' . $e->getMessage()]);
     }
 });
+
+Route::get('/spendings', [SpendingController::class, 'index']);
+Route::post('/spendings', [SpendingController::class, 'store']);
