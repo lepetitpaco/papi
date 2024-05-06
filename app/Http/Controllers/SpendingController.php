@@ -20,7 +20,7 @@ class SpendingController extends Controller
             'title' => 'required|string|max:255',
             'date' => 'required|date',
             'amount' => 'required|numeric',
-            'withdrawn' => 'required|boolean',
+            'withdrawn' => 'sometimes|boolean',
         ]);
 
         $spending = new Spending([
@@ -28,16 +28,29 @@ class SpendingController extends Controller
             'title' => $request->title,
             'date' => $request->date,
             'amount' => $request->amount,
-            'withdrawn' => $request->withdrawn,
-            'date_inserted' => now(), // Laravel's helper function for the current timestamp
+            'withdrawn' => $request->input('withdrawn', false),  // Default to false if not present
+            'date_inserted' => now(),
         ]);
 
         $spending->save();
 
-        return response()->json([
-            'message' => 'Spending record created successfully!',
-            'data' => $spending
-        ], 201);
+        // Check if the request wants JSON response
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => 'Spending record created successfully!',
+                'data' => $spending
+            ], 201);
+        }
+
+        // Redirect for web requests
+        return redirect()->route('spendings.display')->with('success', 'Spending record created successfully!');
     }
+
+    public function display()
+    {
+        $spendings = Spending::paginate(10);
+        return view('spendings', compact('spendings'));
+    }
+
 
 }
