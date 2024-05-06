@@ -20,7 +20,7 @@ class SpendingController extends Controller
             'title' => 'required|string|max:255',
             'date' => 'required|date',
             'amount' => 'required|numeric',
-            'withdrawn' => 'required|boolean',
+            'withdrawn' => 'sometimes|boolean',
         ]);
 
         $spending = new Spending([
@@ -28,7 +28,7 @@ class SpendingController extends Controller
             'title' => $request->title,
             'date' => $request->date,
             'amount' => $request->amount,
-            'withdrawn' => $request->withdrawn,
+            'withdrawn' => $request->input('withdrawn', false),  // Default to false if not present
             'date_inserted' => now(),
         ]);
 
@@ -43,7 +43,7 @@ class SpendingController extends Controller
         }
 
         // Redirect for web requests
-        return redirect('/depenses')->with('success', 'Spending record created successfully!');
+        return redirect()->route('spendings.display')->with('success', 'Spending record created successfully!');
     }
 
     public function display()
