@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpendingController;
+use App\Http\Controllers\Auth\ApiAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,11 @@ Route::get('/db-test', function () {
     }
 });
 
+Route::post('/login', [ApiAuthController::class, 'login']);
+
 // JSON API
-Route::get('/spendings', [SpendingController::class, 'index']);
-Route::post('/spendings', [SpendingController::class, 'store']);
+Route::middleware('auth:sanctum')->group(function () {
+    // Protected API routes
+    Route::get('/spendings', [SpendingController::class, 'index']);
+    Route::post('/spendings', [SpendingController::class, 'store']);
+});
