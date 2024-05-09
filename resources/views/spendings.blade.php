@@ -33,6 +33,11 @@
             "searching": true,
             "responsive": true,
         });
+
+        $('form').submit(function() {
+            $('#addButton').prop('disabled', true).text('Enregistrement...');
+            return true; // ensure form still submits
+        });
     });
     </script>
 
@@ -61,7 +66,7 @@
 
             <div class="form-group">
                 <label for="title">Title:</label>
-                <input type="text" id="title" name="title" class="form-control" value="title_test_front" required>
+                <input type="text" id="title" name="title" class="form-control" required>
             </div>
 
             <div class="form-group">
@@ -71,15 +76,16 @@
 
             <div class="form-group">
                 <label for="amount">Amount:</label>
-                <input type="number" id="amount" name="amount" class="form-control" step="0.01" value="10" required>
+                <input type="number" id="amount" name="amount" class="form-control" step="0.10" required inputmode="decimal">
+
             </div>
 
             <div class="form-group form-check">
-                <input type="checkbox" id="withdrawn" name="withdrawn" class="form-check-input" value="1">
+                <input type="checkbox" id="withdrawn" name="withdrawn" class="form-check-input" value="1" checked>
                 <label class="form-check-label" for="withdrawn">Withdrawn</label>
             </div>
 
-            <button type="submit" class="btn btn-primary">Add Spending</button>
+            <button type="submit" id="addButton" class="btn btn-primary">Ajouter la dépense</button>
         </form>
 
         <!-- Display existing spendings -->
