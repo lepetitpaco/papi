@@ -32,6 +32,8 @@
             "info": true,
             "searching": true,
             "responsive": true,
+            "order": [[2, 'desc']],
+            "pageLength": 100
         });
 
         $('form').submit(function() {
@@ -42,15 +44,15 @@
     </script>
 
     <div class="container mt-5">
-        <h1 class="mb-4">Spendings</h1>
+        <h1 class="mb-4">Dépenses</h1>
 
         <!-- Form for adding a new spending entry -->
         <form action="{{ route('spendings.store') }}" method="POST" class="mb-3">
             @csrf <!-- CSRF protection -->
             <div class="form-group">
-                <label for="category">Category:</label>
+                <label for="category">Categorie:</label>
                 <select id="category" name="category" class="form-control" required>
-                    <option value="">Select Category</option>
+                    <option value="">---</option>
                     <option value="Courses">Courses</option>
                     <option value="Fast Food">Fast Food</option>
                     <option value="Bar">Bar</option>
@@ -76,8 +78,7 @@
 
             <div class="form-group">
                 <label for="amount">Amount:</label>
-                <input type="number" id="amount" name="amount" class="form-control" step="0.10" required inputmode="decimal">
-
+                <input type="number" id="amount" name="amount" class="form-control" step="0.01" required inputmode="decimal">
             </div>
 
             <div class="form-group form-check">

@@ -48,7 +48,7 @@ class SpendingController extends Controller
 
     public function display()
     {
-        $spendings = Spending::paginate(10);
+        $spendings = Spending::paginate(100);
         return view('spendings', compact('spendings'));
     }
 
